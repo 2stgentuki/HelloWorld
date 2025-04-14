@@ -2,7 +2,7 @@ import requests
 import streamlit as st
 
 dify_api_key = st.secrets["app-HuGeHCkqdR01kQoiMAXyzBwX"]
-url = 'https://api.dify.ai/v1'
+url = 'https://api.dify.ai/v1/chat-messages'
 
 st.title('ロボ川のお悩み相談室')
 
