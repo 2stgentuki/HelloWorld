@@ -17,7 +17,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-prompt = st.chat_input("カラスに何か質問してみよう")
+prompt = st.chat_input("なんでも聞いてよ")
 
 if prompt:
     with st.chat_message("user"):
