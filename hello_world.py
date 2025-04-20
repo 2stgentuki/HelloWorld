@@ -100,7 +100,7 @@ def authenticate():
 # メインのチャット画面
 def main_app():
     st.title('🤖 ロボ角川のお悩み相談室')
-    st.markdown("**こにゅこにゅ。よろしくにゃ～ん(ΦωΦ)**")
+    st.markdown("****")
 
     # チャット履歴の表示
     for message in st.session_state.messages:
