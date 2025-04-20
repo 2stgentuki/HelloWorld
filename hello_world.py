@@ -8,6 +8,70 @@ url = 'https://api.dify.ai/v1/chat-messages'
 CORRECT_ID = "ru-to"
 CORRECT_PASSWORD = "pasuwa-do"
 
+# カスタムCSSでデザインを強化
+st.markdown("""
+    <style>
+    /* 全体のフォントと背景 */
+    body {
+        font-family: 'Arial', sans-serif;
+    }
+    .stApp {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: #ffffff;
+    }
+    /* タイトル */
+    h1 {
+        font-size: 2.5em;
+        text-align: center;
+        color: #ffffff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    /* 入力フォーム */
+    .stTextInput > div > input {
+        background-color: #ffffff;
+        color: #333;
+        border-radius: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+    /* ボタン */
+    .stButton > button {
+        background-color: #ff6f61;
+        color: white;
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+    .stButton > button:hover {
+        background-color: #e55a50;
+        transform: scale(1.05);
+    }
+    /* チャットメッセージ */
+    .stChatMessage {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 10px;
+        margin: 5px 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    /* チャット入力 */
+    .stChatInput > div > input {
+        background-color: #ffffff;
+        color: #333;
+        border-radius: 20px;
+        padding: 10px;
+    }
+    /* エラーメッセージ */
+    .stError {
+        background-color: #ff4d4d;
+        color: white;
+        border-radius: 5px;
+        padding: 10px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 # セッション状態の初期化
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
@@ -18,35 +82,41 @@ if "messages" not in st.session_state:
 
 # 認証フォーム
 def authenticate():
-    st.title("ログイン")
-    user_id = st.text_input("ID", key="user_id")
-    password = st.text_input("パスワード", type="password", key="password")
-    if st.button("ログイン"):
-        if user_id == CORRECT_ID and password == CORRECT_PASSWORD:
-            st.session_state.authenticated = True
-            st.rerun()  # 画面を更新
-        else:
-            st.error("IDまたはパスワードが間違っています。")
+    st.title("🔐 ロボ川のお悩み相談室 - ログイン")
+    st.markdown("**IDとパスワードを入力してログインしてください**")
+    
+    with st.form("login_form"):
+        user_id = st.text_input("ID", placeholder="IDを入力")
+        password = st.text_input("パスワード", type="password", placeholder="パスワードを入力")
+        submit_button = st.form_submit_button("ログイン")
+        
+        if submit_button:
+            if user_id == CORRECT_ID and password == CORRECT_PASSWORD:
+                st.session_state.authenticated = True
+                st.rerun()
+            else:
+                st.error("IDまたはパスワードが間違っています。")
 
 # メインのチャット画面
 def main_app():
-    st.title('ロボ川のお悩み相談室')
+    st.title('🤖 ロボ川のお悩み相談室')
+    st.markdown("**なんでも気軽に相談してね！**")
 
     # チャット履歴の表示
     for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
+        with st.chat_message(message["role"], avatar="🤖" if message["role"] == "assistant" else "👤"):
             st.markdown(message["content"])
 
-    prompt = st.chat_input("なんでも聞いてよ")
+    prompt = st.chat_input("なんでも聞いてよ", key="chat_input")
 
     if prompt:
-        with st.chat_message("user"):
+        with st.chat_message("user", avatar="👤"):
             st.markdown(prompt)
         st.session_state.messages.append({"role": "user", "content": prompt})
 
-        with st.chat_message("assistant"):
+        with st.chat_message("assistant", avatar="🤖"):
             message_placeholder = st.empty()
-            message_placeholder.markdown("...")  # ローディング表示
+            message_placeholder.markdown("💬 考え中...")  # ローディング表示
 
             headers = {
                 'Authorization': f'Bearer {dify_api_key}',
@@ -73,7 +143,7 @@ def main_app():
                 st.session_state.conversation_id = new_conversation_id
 
             except requests.exceptions.RequestException:
-                full_response = "エラーが発生しました。もう一度試してください。"
+                full_response = "⚠️ エラーが発生しました。もう一度試してください。"
 
             message_placeholder.markdown(full_response)
             st.session_state.messages.append({"role": "assistant", "content": full_response})
