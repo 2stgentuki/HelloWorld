@@ -82,7 +82,7 @@ if "messages" not in st.session_state:
 
 # 認証フォーム
 def authenticate():
-    st.title("🔐 ロボ川のお悩み相談室 - ログイン")
+    st.title("🔐 ロボ角川のお悩み相談室 - ログイン")
     st.markdown("**IDとパスワードを入力してログインしてください**")
     
     with st.form("login_form"):
@@ -99,15 +99,15 @@ def authenticate():
 
 # メインのチャット画面
 def main_app():
-    st.title('🤖 ロボ川のお悩み相談室')
-    st.markdown("**なんでも気軽に相談してね！**")
+    st.title('🤖 ロボ角川のお悩み相談室')
+    st.markdown("****")
 
     # チャット履歴の表示
     for message in st.session_state.messages:
         with st.chat_message(message["role"], avatar="🤖" if message["role"] == "assistant" else "👤"):
             st.markdown(message["content"])
 
-    prompt = st.chat_input("なんでも聞いてよ", key="chat_input")
+    prompt = st.chat_input("なんでも聞いてよ( ･´ｰ･｀)", key="chat_input")
 
     if prompt:
         with st.chat_message("user", avatar="👤"):
