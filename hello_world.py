@@ -9,6 +9,7 @@ CORRECT_ID = "ru-to"
 CORRECT_PASSWORD = "pasuwa-do"
 
 # カスタムCSSでデザインを強化
+# カスタムCSSを修正
 st.markdown("""
     <style>
     /* 全体のフォントと背景 */
@@ -23,8 +24,12 @@ st.markdown("""
     h1 {
         font-size: 2.5em;
         text-align: center;
-        color: #ffffff;
+        color: #000000; /* 明るい背景でも見えるように黒に変更 */
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    /* ログイン画面の説明文 */
+    .stMarkdown p {
+        color: #000000; /* 説明文も黒で読みやすく */
     }
     /* 入力フォーム */
     .stTextInput > div > input {
@@ -68,6 +73,12 @@ st.markdown("""
         color: white;
         border-radius: 5px;
         padding: 10px;
+    }
+    /* ライトテーマ用の調整 */
+    @media (prefers-color-scheme: light) {
+        h1, .stMarkdown p {
+            color: #000000; /* ライトモードでテキストを黒に */
+        }
     }
     </style>
 """, unsafe_allow_html=True)
