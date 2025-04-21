@@ -104,29 +104,38 @@ def main_app():
     prompt = st.chat_input("ここにメッセージを入力してください…", key="chat_input")
 
     # Handle new user message
-    if prompt:
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("assistant", avatar="🤖"):
-            st.markdown("💬 考え中...")
+    # Handle new user message
+if prompt:
+    # 表示処理を追加
+    with st.chat_message("user", avatar="👤"):
+        st.markdown(prompt)
 
-            # Send request to Dify
-            headers = { 'Authorization': f'Bearer {dify_api_key}', 'Content-Type': 'application/json' }
-            payload = {
-                "inputs": {},
-                "query": prompt,
-                "response_mode": "blocking",
-                "conversation_id": st.session_state.conversation_id,
-                "user": "alex-123",
-                "files": []
-            }
-            try:
-                response = requests.post(url, headers=headers, json=payload)
-                response.raise_for_status()
-                data = response.json()
-                answer = data.get("answer", "レスポンスがありません。")
-                st.session_state.conversation_id = data.get("conversation_id", st.session_state.conversation_id)
-            except requests.exceptions.RequestException:
-                answer = "⚠️ エラーが発生しました。もう一度試してください。"
+    st.session_state.messages.append({"role": "user", "content": prompt})
+
+    with st.chat_message("assistant", avatar="🤖"):
+        st.markdown("💬 考え中...")
+
+        # Send request to Dify
+        headers = { 'Authorization': f'Bearer {dify_api_key}', 'Content-Type': 'application/json' }
+        payload = {
+            "inputs": {},
+            "query": prompt,
+            "response_mode": "blocking",
+            "conversation_id": st.session_state.conversation_id,
+            "user": "alex-123",
+            "files": []
+        }
+        try:
+            response = requests.post(url, headers=headers, json=payload)
+            response.raise_for_status()
+            data = response.json()
+            answer = data.get("answer", "レスポンスがありません。")
+            st.session_state.conversation_id = data.get("conversation_id", st.session_state.conversation_id)
+        except requests.exceptions.RequestException:
+            answer = "⚠️ エラーが発生しました。もう一度試してください。"
+        st.markdown(answer)
+        st.session_state.messages.append({"role": "assistant", "content": answer})
+
             st.markdown(answer)
             st.session_state.messages.append({"role": "assistant", "content": answer})
 
