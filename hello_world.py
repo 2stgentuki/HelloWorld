@@ -1,6 +1,22 @@
 import requests
 import streamlit as st
 
+# Apply dark background
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-color: #000000;
+        color: #FFFFFF;
+    }
+    .stMarkdown, .stTextInput, .stButton, .stChatInput, .stChatMessage, .stTitle {
+        color: #FFFFFF !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Dify API settings
 url = 'https://api.dify.ai/v1/chat-messages'
 dify_api_key = st.secrets["dify"]["api_key"]
@@ -50,7 +66,7 @@ def main_app():
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("assistant", avatar="🤖"):
             st.markdown("💬 考え中...")
-            
+
             # Send request to Dify
             headers = { 'Authorization': f'Bearer {dify_api_key}', 'Content-Type': 'application/json' }
             payload = {
