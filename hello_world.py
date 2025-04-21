@@ -110,11 +110,10 @@ def main_app():
         with st.chat_message("user", avatar="👤"):
             st.markdown(prompt)
 
-        # アシスタントの「考え中」メッセージを表示
+        # アシスタントの応答用プレースホルダー
         with st.chat_message("assistant", avatar="🤖"):
-            st.markdown("💬 考え中...")
-            # アシスタントの応答用プレースホルダー
             response_placeholder = st.empty()
+            response_placeholder.markdown("💬 考え中...")
 
             # Dify APIにリクエストを送信
             headers = {'Authorization': f'Bearer {dify_api_key}', 'Content-Type': 'application/json'}
@@ -137,7 +136,7 @@ def main_app():
 
             # プレースホルダーに実際の応答を表示
             response_placeholder.markdown(answer)
-            # アシスタントの応答をメッセージ履歴に追加
+            # アシスタントの応答のみをメッセージ履歴に追加
             st.session_state.messages.append({"role": "assistant", "content": answer})
 # Application entry point
 if not st.session_state.authenticated:
