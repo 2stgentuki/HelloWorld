@@ -92,6 +92,19 @@ st.markdown("""
     form button:hover {
         background-color: #f0f0f0 !important;
     }
+    div.row-widget.stButton button {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-weight: bold;
+    border: 2px solid #000000 !important;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+div.row-widget.stButton button:hover {
+    background-color: #eeeeee !important;
+    color: #000000 !important;
+}
 
     </style>
 """, unsafe_allow_html=True)
