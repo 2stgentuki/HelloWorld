@@ -81,6 +81,18 @@ st.markdown("""
             color: #ffffff !important;
         }
     }
+    /* ログインボタンの文字を黒に強制 */
+button[kind="primary"] {
+    color: #000000 !important;
+    background-color: #ffffff !important;
+    font-weight: bold;
+    border: 2px solid #000000;
+}
+button[kind="primary"]:hover {
+    background-color: #f0f0f0 !important;
+    color: #000000 !important;
+}
+
     </style>
 """, unsafe_allow_html=True)
 
@@ -94,7 +106,7 @@ if "messages" not in st.session_state:
 
 # 認証フォーム
 def authenticate():
-    st.title("🔐 ロボ角川のお悩みあ相談室 - ログイン")
+    st.title("🔐 ロボ角川のお悩み相談室 - ログイン")
     st.markdown("**IDとパスワードを入力してログインしてください**")
     
     with st.form("login_form"):
