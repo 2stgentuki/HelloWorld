@@ -101,8 +101,6 @@ def main_app():
             st.markdown(msg["content"])
 
     # Clear divider and chat input
-    st.markdown("---")
-    st.markdown("### 💬 チャット入力欄")
     prompt = st.chat_input("ここにメッセージを入力してください…", key="chat_input")
 
     # Handle new user message
