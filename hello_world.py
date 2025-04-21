@@ -1,26 +1,60 @@
 import requests
 import streamlit as st
 
-# Apply dark background
+# Apply theme-aware styles
 st.markdown(
     """
     <style>
     .stApp {
-        background-color: #000000;
-        color: #FFFFFF;
+        background-color: var(--background-color, #f8f9fa);
+        color: var(--text-color, #212529);
     }
     .stMarkdown, .stTextInput, .stButton, .stChatInput, .stChatMessage, .stTitle {
-        color: #FFFFFF !important;
+        color: inherit !important;
     }
-    /* チャット入力欄をはっきりさせる */
+
+    /* チャット入力欄の強調（テーマに合わせて調整） */
     section[data-testid="stChatInput"] {
-        background-color: #1a1a1a !important;
-        border: 2px solid #444 !important;
-        border-radius: 10px !important;
-        padding: 10px !important;
+        background-color: rgba(240, 240, 240, 0.95);
+        border: 2px solid #888;
+        border-radius: 10px;
+        padding: 12px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     }
     section[data-testid="stChatInput"] input {
-        color: #ffffff !important;
+        background-color: #fff;
+        color: #000;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+    section[data-testid="stChatInput"] button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+    }
+    section[data-testid="stChatInput"] button:hover {
+        background-color: #0056b3;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .stApp {
+            background-color: #000000;
+            color: #FFFFFF;
+        }
+        section[data-testid="stChatInput"] {
+            background-color: #111111 !important;
+            border: 2px solid #555 !important;
+        }
+        section[data-testid="stChatInput"] input {
+            background-color: #222222 !important;
+            color: #ffffff !important;
+            border: 1px solid #666 !important;
+        }
+        section[data-testid="stChatInput"] button {
+            background-color: #333 !important;
+            color: #fff !important;
+            border: 1px solid #666 !important;
+        }
     }
     </style>
     """,
