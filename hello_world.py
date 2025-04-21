@@ -95,50 +95,50 @@ def authenticate():
 def main_app():
     st.title('🤖 ロボ角川のお悩み相談室')
 
-    # Display chat history
+    # チャット履歴を表示
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"], avatar="🤖" if msg["role"] == "assistant" else "👤"):
             st.markdown(msg["content"])
 
-    # Clear divider and chat input
+    # チャット入力
     prompt = st.chat_input("ここにメッセージを入力してください…", key="chat_input")
 
-    # Handle new user message
-    # Handle new user message
-if prompt:
-    # 表示処理を追加
-    with st.chat_message("user", avatar="👤"):
-        st.markdown(prompt)
+    # 新しいユーザーメッセージを処理
+    if prompt:
+        # ユーザーメッセージを即座に追加して表示
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        with st.chat_message("user", avatar="👤"):
+            st.markdown(prompt)
 
-    st.session_state.messages.append({"role": "user", "content": prompt})
+        # アシスタントの「考え中」メッセージを表示
+        with st.chat_message("assistant", avatar="🤖"):
+            st.markdown("💬 考え中...")
+            # アシスタントの応答用プレースホルダー
+            response_placeholder = st.empty()
 
-    with st.chat_message("assistant", avatar="🤖"):
-        st.markdown("💬 考え中...")
+            # Dify APIにリクエストを送信
+            headers = {'Authorization': f'Bearer {dify_api_key}', 'Content-Type': 'application/json'}
+            payload = {
+                "inputs": {},
+                "query": prompt,
+                "response_mode": "blocking",
+                "conversation_id": st.session_state.conversation_id,
+                "user": "alex-123",
+                "files": []
+            }
+            try:
+                response = requests.post(url, headers=headers, json=payload)
+                response.raise_for_status()
+                data = response.json()
+                answer = data.get("answer", "レスポンスがありません。")
+                st.session_state.conversation_id = data.get("conversation_id", st.session_state.conversation_id)
+            except requests.exceptions.RequestException:
+                answer = "⚠️ エラーが発生しました。もう一度試してください。"
 
-        # Send request to Dify
-        headers = { 'Authorization': f'Bearer {dify_api_key}', 'Content-Type': 'application/json' }
-        payload = {
-            "inputs": {},
-            "query": prompt,
-            "response_mode": "blocking",
-            "conversation_id": st.session_state.conversation_id,
-            "user": "alex-123",
-            "files": []
-        }
-        try:
-            response = requests.post(url, headers=headers, json=payload)
-            response.raise_for_status()
-            data = response.json()
-            answer = data.get("answer", "レスポンスがありません。")
-            st.session_state.conversation_id = data.get("conversation_id", st.session_state.conversation_id)
-        except requests.exceptions.RequestException:
-            answer = "⚠️ エラーが発生しました。もう一度試してください。"
-        st.markdown(answer)
-        st.session_state.messages.append({"role": "assistant", "content": answer})
-
-            st.markdown(answer)
+            # プレースホルダーに実際の応答を表示
+            response_placeholder.markdown(answer)
+            # アシスタントの応答をメッセージ履歴に追加
             st.session_state.messages.append({"role": "assistant", "content": answer})
-
 # Application entry point
 if not st.session_state.authenticated:
     authenticate()
