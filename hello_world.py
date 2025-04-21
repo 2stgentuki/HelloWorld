@@ -12,6 +12,16 @@ st.markdown(
     .stMarkdown, .stTextInput, .stButton, .stChatInput, .stChatMessage, .stTitle {
         color: #FFFFFF !important;
     }
+    /* チャット入力欄をはっきりさせる */
+    section[data-testid="stChatInput"] {
+        background-color: #1a1a1a !important;
+        border: 2px solid #444 !important;
+        border-radius: 10px !important;
+        padding: 10px !important;
+    }
+    section[data-testid="stChatInput"] input {
+        color: #ffffff !important;
+    }
     </style>
     """,
     unsafe_allow_html=True
