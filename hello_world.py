@@ -79,7 +79,7 @@ if "messages" not in st.session_state:
 
 # Authentication form
 def authenticate():
-    st.title("🔐 ロボ角川のお悩み相談室 - ログイン")
+    st.title("🔐 ロボ角川のお悩み相談室")
     st.markdown("**IDとパスワードを入力してログインしてください**")
 
     user_id = st.text_input("ID", placeholder="IDを入力")
