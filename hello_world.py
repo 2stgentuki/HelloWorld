@@ -1,13 +1,15 @@
 import requests
 import streamlit as st
 
-dify_api_key = st.secrets["dify"]["api_key"]
+# Dify API settings
 url = 'https://api.dify.ai/v1/chat-messages'
+dify_api_key = st.secrets["dify"]["api_key"]
 
+# Authentication credentials
 CORRECT_ID = "ru-to"
 CORRECT_PASSWORD = "pasuwa-do"
 
-# セッション状態の初期化
+# Session state initialization
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
 if "conversation_id" not in st.session_state:
@@ -15,6 +17,7 @@ if "conversation_id" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
+# Authentication form
 def authenticate():
     st.title("🔐 ロボ角川のお悩み相談室 - ログイン")
     st.markdown("**IDとパスワードを入力してログインしてください**")
@@ -28,30 +31,28 @@ def authenticate():
         else:
             st.error("IDまたはパスワードが間違っています。")
 
+# Main chat application
 def main_app():
     st.title('🤖 ロボ角川のお悩み相談室')
-    st.markdown("****")
 
-    for message in st.session_state.messages:
-        with st.chat_message(message["role"], avatar="🤖" if message["role"] == "assistant" else "👤"):
-            st.markdown(message["content"])
+    # Display chat history
+    for msg in st.session_state.messages:
+        with st.chat_message(msg["role"], avatar="🤖" if msg["role"] == "assistant" else "👤"):
+            st.markdown(msg["content"])
 
-    prompt = st.chat_input("なんでも聞いてよ( ･´ｰ･｀)", key="chat_input")
+    # Clear divider and chat input
+    st.markdown("---")
+    st.markdown("### 💬 チャット入力欄")
+    prompt = st.chat_input("ここにメッセージを入力してください…", key="chat_input")
 
+    # Handle new user message
     if prompt:
-        with st.chat_message("user", avatar="👤"):
-            st.markdown(prompt)
         st.session_state.messages.append({"role": "user", "content": prompt})
-
         with st.chat_message("assistant", avatar="🤖"):
-            message_placeholder = st.empty()
-            message_placeholder.markdown("💬 考え中...")
-
-            headers = {
-                'Authorization': f'Bearer {dify_api_key}',
-                'Content-Type': 'application/json'
-            }
-
+            st.markdown("💬 考え中...")
+            
+            # Send request to Dify
+            headers = { 'Authorization': f'Bearer {dify_api_key}', 'Content-Type': 'application/json' }
             payload = {
                 "inputs": {},
                 "query": prompt,
@@ -60,20 +61,18 @@ def main_app():
                 "user": "alex-123",
                 "files": []
             }
-
             try:
                 response = requests.post(url, headers=headers, json=payload)
                 response.raise_for_status()
-                response_data = response.json()
-                full_response = response_data.get("answer", "レスポンスがありません。")
-                new_conversation_id = response_data.get("conversation_id", st.session_state.conversation_id)
-                st.session_state.conversation_id = new_conversation_id
+                data = response.json()
+                answer = data.get("answer", "レスポンスがありません。")
+                st.session_state.conversation_id = data.get("conversation_id", st.session_state.conversation_id)
             except requests.exceptions.RequestException:
-                full_response = "⚠️ エラーが発生しました。もう一度試してください。"
+                answer = "⚠️ エラーが発生しました。もう一度試してください。"
+            st.markdown(answer)
+            st.session_state.messages.append({"role": "assistant", "content": answer})
 
-            message_placeholder.markdown(full_response)
-            st.session_state.messages.append({"role": "assistant", "content": full_response})
-
+# Application entry point
 if not st.session_state.authenticated:
     authenticate()
 else:
