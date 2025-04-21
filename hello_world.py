@@ -23,12 +23,12 @@ st.markdown("""
     h1 {
         font-size: 2.5em;
         text-align: center;
-        color: #000000; /* ライトモードで見えるように黒に変更 */
+        color: #ffffff;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
     /* ログイン画面の説明文 */
     .stMarkdown p {
-        color: #000000; /* 説明文も黒に変更 */
+        color: #ffffff;
     }
     /* 入力フォーム */
     .stTextInput > div > input {
@@ -40,7 +40,7 @@ st.markdown("""
     }
     /* ボタン */
     .stButton > button {
-        background-color: #000000; /* ボタンの背景は黒のまま */
+        background-color: #ff0000; /* ボタンの背景を赤に変更 */
         color: #ffffff; /* ボタンの文字は白のまま */
         border-radius: 10px;
         padding: 10px 20px;
@@ -48,7 +48,7 @@ st.markdown("""
         transition: all 0.3s ease;
     }
     .stButton > button:hover {
-        background-color: #333333; /* ホバー時の背景色 */
+        background-color: #cc0000; /* ホバー時に少し濃い赤 */
         color: #ffffff; /* ホバー時の文字色 */
         transform: scale(1.05);
     }
@@ -77,7 +77,7 @@ st.markdown("""
     /* ライトテーマ用の調整 */
     @media (prefers-color-scheme: light) {
         h1, .stMarkdown p {
-            color: #000000 !important; /* ライトモードで確実に黒に */
+            color: #ffffff !important;
         }
     }
     </style>
