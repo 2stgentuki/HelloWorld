@@ -39,19 +39,20 @@ st.markdown("""
         border: 1px solid #ccc;
     }
     /* ボタン */
-    .stButton > button {
-        background-color: #ff0000; /* ボタンの背景を赤に変更 */
-        color: #ffffff; /* ボタンの文字は白のまま */
-        border-radius: 10px;
-        padding: 10px 20px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-    }
-    .stButton > button:hover {
-        background-color: #cc0000 !important; /* 濃い赤 */
-        color: #ffffff !important;           /* 白文字に変化 */
-        transform: scale(1.05);
-    }
+.stButton > button {
+    background-color: #ffffff !important;  /* 背景を白に */
+    color: #000000 !important;             /* 🔽 テキストを黒に */
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+.stButton > button:hover {
+    background-color: #e0e0e0 !important;  /* ホバー時はグレー */
+    color: #000000 !important;             /* テキスト黒のまま */
+    transform: scale(1.05);
+}
+
     /* チャットメッセージ */
     .stChatMessage {
         background-color: rgba(255, 255, 255, 0.1);
