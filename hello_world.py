@@ -36,16 +36,16 @@ st.markdown("""
     }
     /* ボタン */
     .stButton > button {
-        background-color: #ff6f61;
-        color: #000000; /* ボタンの文字色を黒に変更 */
+        background-color: #000000; /* ボタンの背景を黒に変更 */
+        color: #ffffff; /* 文字色を白に変更 */
         border-radius: 10px;
         padding: 10px 20px;
         font-weight: bold;
         transition: all 0.3s ease;
     }
     .stButton > button:hover {
-        background-color: #e55a50;
-        color: #000000; /* ホバー時も文字色を黒に */
+        background-color: #333333; /* ホバー時に少し明るい黒 */
+        color: #ffffff; /* ホバー時も文字色を白に */
         transform: scale(1.05);
     }
     /* チャットメッセージ */
