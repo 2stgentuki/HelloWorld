@@ -36,6 +36,7 @@ def main_app():
         with st.chat_message(message["role"], avatar="🤖" if message["role"] == "assistant" else "👤"):
             st.markdown(message["content"])
 
+    st.markdown("### 💬 チャット入力欄")
     prompt = st.chat_input("なんでも聞いてよ( ･´ｰ･｀)", key="chat_input")
 
     if prompt:
