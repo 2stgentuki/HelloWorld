@@ -99,6 +99,28 @@ form button:hover {
     background-color: #e0e0e0 !important;
     color: #000000 !important;
 }
+/* Streamlitテーマのcolor-schemeを上書きして白背景・黒文字を強制 */
+html, body, .stApp {
+    color-scheme: light !important;
+}
+
+form button {
+    all: unset;
+    display: inline-block;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-weight: bold !important;
+    padding: 10px 20px !important;
+    border-radius: 10px !important;
+    border: 2px solid #000000 !important;
+    font-size: 16px !important;
+    text-align: center !important;
+    cursor: pointer !important;
+}
+form button:hover {
+    background-color: #e0e0e0 !important;
+    color: #000000 !important;
+}
 
 
     </style>
