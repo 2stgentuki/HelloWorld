@@ -48,8 +48,8 @@ st.markdown("""
         transition: all 0.3s ease;
     }
     .stButton > button:hover {
-        background-color: #cc0000; /* ホバー時に少し濃い赤 */
-        color: #ffffff; /* ホバー時の文字色 */
+        background-color: #cc0000 !important; /* 濃い赤 */
+        color: #ffffff !important;           /* 白文字に変化 */
         transform: scale(1.05);
     }
     /* チャットメッセージ */
