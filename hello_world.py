@@ -50,6 +50,7 @@ st.markdown("""
     }
     .stButton > button:hover {
         background-color: #e55a50;
+        color: #000000; /* ホバー時も文字色を黒に */
         transform: scale(1.05);
     }
     /* チャットメッセージ */
