@@ -81,30 +81,25 @@ st.markdown("""
             color: #ffffff !important;
         }
     }
-        /* フォーム送信ボタンの強制上書き */
-    form button {
-        color: #000000 !important;
-        background-color: #ffffff !important;
-        font-weight: bold;
-        border: 2px solid #000000 !important;
-        border-radius: 8px;
-    }
-    form button:hover {
-        background-color: #f0f0f0 !important;
-    }
-    div.row-widget.stButton button {
+/* form内ボタンの完全制御：ログインボタンの文字色を黒に強制 */
+form button {
+    all: unset;
+    display: inline-block;
     background-color: #ffffff !important;
     color: #000000 !important;
-    font-weight: bold;
+    font-weight: bold !important;
+    padding: 10px 20px !important;
+    border-radius: 10px !important;
     border: 2px solid #000000 !important;
-    border-radius: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
+    font-size: 16px !important;
+    text-align: center !important;
+    cursor: pointer !important;
 }
-div.row-widget.stButton button:hover {
-    background-color: #eeeeee !important;
+form button:hover {
+    background-color: #e0e0e0 !important;
     color: #000000 !important;
 }
+
 
     </style>
 """, unsafe_allow_html=True)
