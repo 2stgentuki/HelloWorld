@@ -81,17 +81,17 @@ st.markdown("""
             color: #ffffff !important;
         }
     }
-    /* ログインボタンの文字を黒に強制 */
-button[kind="primary"] {
-    color: #000000 !important;
-    background-color: #ffffff !important;
-    font-weight: bold;
-    border: 2px solid #000000;
-}
-button[kind="primary"]:hover {
-    background-color: #f0f0f0 !important;
-    color: #000000 !important;
-}
+        /* フォーム送信ボタンの強制上書き */
+    form button {
+        color: #000000 !important;
+        background-color: #ffffff !important;
+        font-weight: bold;
+        border: 2px solid #000000 !important;
+        border-radius: 8px;
+    }
+    form button:hover {
+        background-color: #f0f0f0 !important;
+    }
 
     </style>
 """, unsafe_allow_html=True)
